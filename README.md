@@ -49,25 +49,31 @@ Dataset features:
 
 ## Data Preparation 
 For the data preparation stage, several steps have been carried out, namely by checking missing values by:
+
 `df.isna().sum()`
 
 removing empty data in each column by:
+
 `for index in df[df['Column Name'].isna()].index:
   df.drop(index, axis=0, inplace=True).`
   
 eliminating unnecessary columns such as the Critic_Score, Critic_Count, and User_Count columns and the Global_Sales column since this column is unused by:
+
 `df.drop(['Global_Sales', 'Critic_Score', 'Critic_Count', 'User_Count'], axis=1, inplace=True)`
 
 removing unique elements in columns with unique elements of little value such as the Platform column by:
+
 `platform_less_than_350 = ['2600', '3DO', 'DC', 'GB', 'GEN', 'GG', 'N64','NES', 'NG',
                           'PCFX', 'SAT', 'SCD', 'SNES', 'TG16', 'WS', 'WiiU', 'XOne']
 df = df[~df['Platform'].isin(platform_less_than_350)]`
 
 perform one-hot encoding on categorical data by:
+
 `column_object = df.dtypes[df.dtypes == 'object'].keys()
 one_hot_label = pd.get_dummies(df[column_object])`
 
 and standardize numeric columns with MinMaxScaler by:
+
 `column_numeric = list(df.dtypes[df.dtypes == 'float64'].keys())
 
 scaler = MinMaxScaler()
@@ -81,6 +87,7 @@ Machine learning modeling to recommend certain games to users is using the K-Nea
 With the existing data and after processing the data, the features that affect the game recommendations are taken. Some of the features used are Platform, Year_of_Release, Game, Publisher, NA_Sales, EU_Sales, JP_Sales, Other_Sales, User_Score, and Rating.
 
 At the beginning of making the model, the K-NearestNeighbors model is used with the set of metric parameters used, namely Euclidean distance and a recommendation system function is made for the top 5 games when a game is given by: 
+
 `model = NearestNeighbors(metric='euclidean')`
 
 Created a list of recommended game names and their similarities where 100% is subtracted by the euclidean distance of the recommended game. Then the list is entered in the DataFrame so that it can be easily understood by the user.
@@ -88,6 +95,7 @@ Created a list of recommended game names and their similarities where 100% is su
 Using the initial model, predictions are made on the game with the name Final Fantasy IX or loc[111] on the game name DataFrame. The results are in the form of game recommendations such as Final Fantasy VIII, Final Fantasy Tactics, Xenogears, Tales of Destiny II, and Chrono Cross, all of which have similarities based on euclidean distance above 98.5%. A pretty good recommendation for an early model with several similar games is indicated by the name of the recommended game that is the same as the game being played.
 
 Machine learning is developed using a different algorithm, which uses cosine similarity. After making a cosinesimilarity dataframe and making a recommendation function with cosine similarity by:
+
 `cosine_sim = cosine_similarity(df)`
 
 The same as the initial model, the results of the game recommendations are entered in a dataframe that contains the name of the recommended game and its similarity using cosinesimilarity.
@@ -96,9 +104,11 @@ The same as the initial model, the results of the game recommendations are enter
 For the evaluation of the model, two methods or methods of model evaluation were used, namely the Calinski-Harabasz Score and the Davies-Bouldin Score.
 
 `calinski_harabasz_score(df, df_game_name).round(2)`
+
 Calinski-Harabasz or also known as the Variance Ratio Criterion, is the ratio of the sum of the inter-cluster dispersion and inter-cluster dispersion for all clusters, the higher the score, the better the performance. Obtained a score of 5.09 for the Calinski-Harabasz score which is quite small for the recommendation system model.
 
 `davies_bouldin_score(df, df_game_name).round(2)`
+
 The second method is to use the evaluation of the Davies-Bouldin Score. This score indicates the average 'similarity' between clusters, where similarity is a measure that compares the distance between clusters with the size of the cluster itself. A lower Davies-Bouldin score is associated with a model that has better separation between clusters. Obtained a score of 2.93 for the Davies-Bouldin score which is quite high for the recommendation system model. 
 
 It turns out that by using a different algorithm, the results of the Final Fantasy IX game prediction or loc[111] on the DataFrame of the game name are the same as the initial model using KNearestNeighbors. Even though the recommended games such as Final Fantasy VIII, Final Fantasy Tactics, Xenogears, Tales of Destiny II, and Chrono Cross have a cosinesimilarity score above 0.82, it can be concluded that the successful model predicts games that users might like.
