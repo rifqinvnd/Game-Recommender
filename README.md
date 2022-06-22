@@ -1,6 +1,6 @@
 # Game-Recommender
 
-# Recommendation System with *Content-based Filtering* *by: [Rifqi Novandi](https://github.com/rifqinvnd)* 
+# Recommendation System with *Content-based Filtering*
 
 ## Background
 Game is a tool used to play, an item or something that is usually used for entertainment or pleasure, and sometimes used as an educational tool. Play is distinct from work, which is usually done for a wage, and from art, which is more often an expression of aesthetic or ideological elements. However, the distinction is not clear, and many games are also considered works (such as professional sports players or spectator games) or art (such as puzzles or games involving an artistic layout such as Mahjong, solitaire, or some video games).
