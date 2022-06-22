@@ -1,78 +1,76 @@
 # Game-Recommender
 
-# Recommendation System with *Content-based Filtering* *Oleh: [Rifqi Novandi](https://github.com/rifqinvnd)* 
+# Recommendation System with *Content-based Filtering* *by: [Rifqi Novandi](https://github.com/rifqinvnd)* 
 
-## Latar Belakang
-Game atau permainan merupakan sarana yang digunakan untuk bermain, sebuah barang atau sesuatu yang pada umumnya digunakan untuk hiburan atau kesenangan, dan kadang-kadang digunakan sebagai alat pendidikan. Permainan berbeda dari pekerjaan, yang biasanya dilakukan untuk mendapatkan upah, dan dari seni, yang lebih sering merupakan ekspresi elemen estetika atau ideologis. Namun, perbedaannya tidak jelas, dan banyak permainan juga dianggap sebagai karya (seperti pemain profesional olahraga atau permainan penonton) atau seni (seperti puzzle atau permainan yang melibatkan tata letak artistik seperti Mahjong, solitaire, atau beberapa permainan video).  
+## Background
+Game is a tool used to play, an item or something that is usually used for entertainment or pleasure, and sometimes used as an educational tool. Play is distinct from work, which is usually done for a wage, and from art, which is more often an expression of aesthetic or ideological elements. However, the distinction is not clear, and many games are also considered works (such as professional sports players or spectator games) or art (such as puzzles or games involving an artistic layout such as Mahjong, solitaire, or some video games).
 
-Game sangat relevan dengan kondisi saat ini yaitu pandemi dimana kebanyakan orang menggunakan game sebagai sarana untuk menghilangkan rasa jenuh di rumah. Terdapat banyak genre dari game seperti action, sport, music, dll. Game juga mempunyai platform tertentu seperti yang dimainkan di PC, PS, Handphone, dll. Biasanya orang dengan genre game tertentu seperti action, cenderung memainkan game dengan genre action juga. Begitu pula dengan platform, orang yang biasa memainkan game pada platform tertentu semisal PC, cenderung memainkan game yang berada di platform yang sama.  
+Games are very relevant to the current condition, namely a pandemic where most people use games as a means to relieve boredom at home. There are many genres of games such as action, sports, music, etc. Games also have certain platforms such as those played on PC, PS, Mobile, etc. Usually people with certain game genres, such as action, tend to play games with the action genre as well. Likewise with platforms, people who usually play games on certain platforms such as PCs, tend to play games that are on the same platform.
 
-Pada proyek machine learning ini, akan dibuat model sistem rekomendasi untuk memprediksi game yang disukai berdasarkan game lain yang memiliki kesamaan serupa atau dengan menggunakan teknik *content-based filtering* dengan beberapa variabel seperti platform, tahun rilis, genre, dll.  
+In this machine learning project, a recommendation system model will be made to predict preferred games based on other games that have similarities or by using *content-based filtering* techniques with several variables such as platform, year of release, genre, etc.
 
-Seperti yang dijelaskan sebelumnya, orang yang memainkan genre game tertentu diplatform tertentu cenderung stuck dengan genre dan platform yang sama. Ataupun karena mereka puas dengan game yang dilaunch publisher tertentu, maka akan menantikan game yang juga dilaunch oleh publisher tersebut. Oleh karena itu, disini akan dibuat sistem rekomendasi game yang dapat memprediksi game-game yang mungkin disukai oleh pengguna berdasarkan genre, platform, publisher, dan variabel lain yang memiliki kesamaan atau dengan *content-based filtering*.   
-
-*Referensi* : [Wikipedia](https://id.wikipedia.org/wiki/Permainan#Jenis_permainan)  
+People who play certain game genres on certain platforms tend to be stuck with the same genres and platforms. Or because they are satisfied with games launched by certain publishers, they will look forward to games that are also launched by that publisher. Therefore, here a game recommendation system will be created that can predict the games that users might like based on genre, platform, publisher, and other variables that have similarities or with *content-based filtering*.
 
 ## Business Understanding 
-Untuk menciptakan sistem rekomendasi yang dapat merekomendasikan game yang mugkin disukai pengguna, akan digunakan teknik model sistem rekomendasi *content-based filtering* dengan algoritma KNearestNeighbors dan juga CosineSimilarity.  
+To create a recommendation system that can recommend games that users might like, a content-based filtering recommendation system model technique will be used with the KNearestNeighbors and CosineSimilarity algorithms.
 
-- Masalah yang harus diselesaikan: 
-Mendapatkan rekomendasi game tertentu yang mungkin disukai oleh pengguna 
-- Tujuan dari pembuatan Machine Learning Model: 
-Model dapat merekomendasikan game tertentu dengan tingkat kesamaan yang tinggi (>90%). 
-- Solusi: 
-Membuat Machine Learning dengan Algoritma KNearestNeighbors yang dapat merekomendasikan game berdasarkan k-kemiripan fitur game tertentu.  
+- Problems to solve:
+Get recommendations for specific games that users might like
+- The purpose of making Machine Learning Model:
+The model can recommend certain games with a high degree of similarity (>90%).
+- Solution:
+Creating Machine Learning with the KNearestNeighbors Algorithm that can recommend games based on the k-similarity of certain game features.
 
 ## Data Understanding 
-Dataset yang digunakan untuk merekomendasikan game merupakan dataset dari Kaggle. Dataset ini telah digunakan untuk memprediksi stroke dengan 242 algoritma model berbeda. Dataset ini memiliki 16719 sample atau row dengan 16 fitur atau kolom untuk membuat sistem rekomendasi game dengan *content-based filtering*. Dataset ini dibuat oleh [Rush Kirubi](https://www.kaggle.com/rush4ratio).  
+The dataset used to recommend games is a dataset from Kaggle. This dataset has been used to predict stroke with 242 different model algorithms. This dataset has 16719 samples or rows with 16 features or columns to create a game recommendation system with *content-based filtering*. This dataset was created by [Rush Kirubi](https://www.kaggle.com/rush4ratio).  
 
-Link Dataset: [Game Sales with Ratings Dataset](https://www.kaggle.com/rush4ratio/video-game-sales-with-ratings)  
+Dataset Link: [Game Sales with Ratings Dataset](https://www.kaggle.com/rush4ratio/video-game-sales-with-ratings)  
 
-Feature pada Dataset: 
-1. Name : Nama game yang akan direkomendasikan [str] 
-2. Platform : Platform tempat game disediakan (terdapat 31 platform berbeda) [str] 
-3. Year_of_Release : Tahun rilis game [str] 
-4. Genre : Genre atau jenis game yang berisikan 12 genre berbeda [str] 
-5. Publisher : Penerbit yang menerbitkan game [str] 
-6. NA_Sales : Sales game pada region North America dalam satuan juta [float] 
-7. EU_Sales : Sales game pada region Europe dalam satuan juta [float] 
-8. JP_Sales : Sales game pada region Japan dalam satuan juta [float] 
-9. Other_Sales : Sales game pada region selain North America, Europe dan Japan dalam satuan juta [float] 
-10. Global_Sales : Total sales game pada seluruh region dalam satuan juta [float] 
-11. Critic_Score : Nilai agregat yang diberikan oleh metacritic reviewer [float] 
-12. Critic_Count : Total metacritic reviewer yang menilai game [float] 
-13. User_Score : Nilai agregat yang diberikan oleh user [float] 
-14. User_Count : Total user yang menilai game [float] 
-15. Developer : Perusahaan yang berkolaborasi dalam pembuatan game [str] 
-16. Rating : ESRB Rating menyediakan rating yang biasanya mendeskripsikan kalangan tertentu dalam rentang umur tertentu ('E', 'M', 'T', 'E10+', 'K-A', 'AO', 'EC', 'RP') [str]  
+Dataset features: 
+1. Name : The name of the game to be recommended [str]
+2. Platform : The platform on which the game is provided (there are 31 different platforms) [str]
+3. Year_of_Release : Game release year [str]
+4. Genre: Genre or type of game that contains 12 different genres [str]
+5. Publisher : Publisher who publishes game [str]
+6. NA_Sales : Game sales in the North America region in million [float]
+7. EU_Sales : Game sales in the Europe region in million [float]
+8. JP_Sales : Sales of games in the Japan region in million [float]
+9. Other_Sales : Game sales in regions other than North America, Europe and Japan in million [float]
+10. Global_Sales : Total game sales in all regions in million [float]
+11. Critic_Score : Aggregate score given by metacritic reviewer [float]
+12. Critic_Count : Total metacritic reviewers who rate the game [float]
+13. User_Score : Aggregate value given by user [float]
+14. User_Count : Total users who rate the game [float]
+15. Developer : Companies that collaborate in making games [str]
+16. Rating : ESRB Rating provides a rating that usually describes a certain group within a certain age range ('E', 'M', 'T', 'E10+', 'K-A', 'AO', 'EC', 'RP ') [str]
 
 ## Data Preparation 
-Untuk tahap persiapan data, telah dilakukan beberapa tahap yaitu dengan mmembuang data kosong pada setiap kolom, menghilangkan kolom yang tidak diperlukan seperti kolom Critic_Score, Critic_Count,dan User_Count serta kolom Global_Sales, membuang unique elemen pada kolom dengan unique elemen yang bernilai sedikit seperti kolom Platform, membuang data duplikasi, melakukan one-hot encoding pada data kategorikal, serta melakukan standarisasi pada kolom numerikal dengan MinMaxScaler.  
+For the data preparation stage, several steps have been carried out, namely by removing empty data in each column, eliminating unnecessary columns such as the Critic_Score, Critic_Count, and User_Count columns and the Global_Sales column, removing unique elements in columns with unique elements of little value such as the Platform column, remove duplicate data, perform one-hot encoding on categorical data, and standardize numeric columns with MinMaxScaler.
 
-Diperlukan tahapan seperti membuang data kosong agar perhitungan atau algoritma tidak error. Untuk tahapan membuang kolom tertentu seperti kolom Critic_Score, Critic_Count,dan User_Count karena terlalu banyak data kosong serta kolom Global_Sales karena telah dideskripsikan oleh sales pada region yang telah dibagi diperlukan agar data data yang dapat merusak model dapat dibuang. Setelah itu, membuang unique elemen pada kolom dengan unique elemen yang bernilai sedikit seperti kolom Platform dengan jumlah dibawah 350 agar kualitas data dapat meningkat. Lalu membuang data duplikasi agar kualitas model juga baik. Untuk tahapan standarisasi dilakukan agar fitur tidak terbanting nilainya dengan fitur lainnya menggunakan MinMaxScaler serta one-hot encoding agar membuat fitur kategorikal menjadi numerikal.  
+Steps are needed, such as removing empty data so that the calculation or algorithm does not get an error. For the stages of removing certain columns such as the Critic_Score, Critic_Count, and User_Count columns because there are too many empty data and the Global_Sales column because it has been described by sales in the divided region, it is necessary so that data that can damage the model can be discarded. After that, remove the unique element in the column with a unique element that has little value such as the Platform column with an amount below 350 so that data quality can improve. Then remove the duplicate data so that the model quality is also good. The standardization stage is carried out so that the features are not slamming in value with other features using MinMaxScaler and one-hot encoding to make categorical features numerical.
 
 ## Modeling 
-Seperti yang sudah dijelaskan diawal, pemodelan machine learning untuk merekomendasikan game tertentu pada pengguna yaitu menggunakan algoritma K-NearestNeighbors. Algoritma ini bekerja berdasarkan dengan fitur fitur yang ada dan kemiripan antara fitur fitur tersebut untuk menilai apakah game tertentu dapat direkomendasikan saat pengguna memainkan sebuah game.  
+Machine learning modeling to recommend certain games to users is using the K-NearestNeighbors algorithm. This algorithm works based on existing features and similarities between these features to assess whether a particular game can be recommended when a user plays a game.
 
-Dengan data yang ada dan setelah dilakukan pengolahan data, diambil fitur fitur yang berpengaruh  terhadap rekomendasi game. Beberapa fitur yang digunakan yaitu Platform, Year_of_Release, Game, Publisher, NA_Sales, EU_Sales, JP_Sales, Other_Sales, User_Score, dan Rating.  
+With the existing data and after processing the data, the features that affect the game recommendations are taken. Some of the features used are Platform, Year_of_Release, Game, Publisher, NA_Sales, EU_Sales, JP_Sales, Other_Sales, User_Score, and Rating.
 
-Pada awal pembuatan model, digunakan model K-NearestNeighbors dengan set parameter metric yang digunakan yaitu euclidean distance dan dibuat fungsi sistem rekomendasi untuk 5 game teratas saat sebuah game diberikan. Dibuat sebuah list dari nama game yang direkomendasikan serta kemiripannya dimana 100% dikurang dengan euclidean distance dari game yag direkomendasikan. Lalu list tersebut dimasukkan pada DataFrame sehingga dapat mudah dipahami oleh pengguna.  
+At the beginning of making the model, the K-NearestNeighbors model is used with the set of metric parameters used, namely Euclidean distance and a recommendation system function is made for the top 5 games when a game is given. Created a list of recommended game names and their similarities where 100% is subtracted by the euclidean distance of the recommended game. Then the list is entered in the DataFrame so that it can be easily understood by the user.
 
-Menggunakan model awal, dilakukan prediksi pada game dengan nama Final Fantasy IX atau loc[111] pada DataFrame nama game. Didapatkan hasil berupa rekomendasi game seperti Final Fantasy VIII, Final Fantasy Tactics, Xenogears, Tales of Destiny II, dan Chrono Cross yang semua game tersebut memiliki kemiripan berdasarkan euclidean distance diatas 98,5%. Rekomendasi yang cukup baik untuk model awal dengan beberapa game serupa ditunjukan dengan nama dari game rekomendasi yang sama dengan game yang dimainkan.  
+Using the initial model, predictions are made on the game with the name Final Fantasy IX or loc[111] on the game name DataFrame. The results are in the form of game recommendations such as Final Fantasy VIII, Final Fantasy Tactics, Xenogears, Tales of Destiny II, and Chrono Cross, all of which have similarities based on euclidean distance above 98.5%. A pretty good recommendation for an early model with several similar games is indicated by the name of the recommended game that is the same as the game being played.
 
-Dilakukan pengembangan machine learning dengan menggunakan Algoritma yang berbeda yaitu dimana menggunakan cosine similarity. Setelah dilakukan pembuatan dataframe cosinesimilarity dan pembuatan fungsi rekomendasi dengan cosine similarity, sama seperti model awal, hasil dari rekomendasi game dimasukkan pada suatu dataframe yang berisikan nama game rekomendasi serta kemiripannya menggunakan cosinesimilarity.   
+Machine learning is developed using a different algorithm, which uses cosine similarity. After making a cosinesimilarity dataframe and making a recommendation function with cosine similarity, the same as the initial model, the results of the game recommendations are entered in a dataframe that contains the name of the recommended game and its similarity using cosinesimilarity.
 
-Ternyata dengan menggunakan Algoritma yang berbeda, hasil dari prediksi game Final Fantasy IX atau loc[111] pada DataFrame nama game sama dengan model awal menggunakan KNearestNeighbors. Meskipun rekomendasi game seperti Final Fantasy VIII, Final Fantasy Tactics, Xenogears, Tales of Destiny II, dan Chrono Cross memiliki score cosinesimilarity diatas 0,82 , namun dapat disimpulkan bahwa model sukses memprediksi game yang mungkin disukai pengguna.  
+## Model Evaluation
+For the evaluation of the model, two methods or methods of model evaluation were used, namely the Calinski-Harabasz Score and the Davies-Bouldin Score.
 
-## Evaluasi Model 
-Untuk evaluasi model, digunakan 2 metode atau cara evaluasi model yaitu dengan Calinski-Harabasz Score dan Davies-Bouldin Score. 
+Calinski-Harabasz or also known as the Variance Ratio Criterion, is the ratio of the sum of the inter-cluster dispersion and inter-cluster dispersion for all clusters, the higher the score, the better the performance. Obtained a score of 5.09 for the Calinski-Harabasz score which is quite small for the recommendation system model.
 
-Calinski-Harabasz atau juga dikenal sebagai Variance Ratio Criterion, merupakan rasio jumlah dispersi antar-cluster dan dispersi antar-cluster untuk semua cluster, semakin tinggi skornya, semakin baik kinerjanya. Didapatkan score 5.09 untuk Calinski-Harabasz score yang dimana cukup kecil untuk model sistem rekomendasi.  
+The second method is to use the evaluation of the Davies-Bouldin Score. This score indicates the average 'similarity' between clusters, where similarity is a measure that compares the distance between clusters with the size of the cluster itself. A lower Davies-Bouldin score is associated with a model that has better separation between clusters. Obtained a score of 2.93 for the Davies-Bouldin score which is quite high for the recommendation system model. 
 
-Metode yang kedua yaitu dengan menggunakan evaluasi Davies-Bouldin Score. Score ini menandakan rata-rata ‘kemiripan’ antar klaster, dimana kemiripan adalah ukuran yang membandingkan jarak antar klaster dengan ukuran klaster itu sendiri. Davies-Bouldin Score yang lebih rendah berhubungan dengan model yang memiliki pemisahan yang lebih baik antara cluster. Didapatkan score 2.93 untuk Davies-Bouldin score yang dimana cukup tinggi untuk model sistem rekomendasi.  
+It turns out that by using a different algorithm, the results of the Final Fantasy IX game prediction or loc[111] on the DataFrame of the game name are the same as the initial model using KNearestNeighbors. Even though the recommended games such as Final Fantasy VIII, Final Fantasy Tactics, Xenogears, Tales of Destiny II, and Chrono Cross have a cosinesimilarity score above 0.82, it can be concluded that the successful model predicts games that users might like.
 
-### Referensi 
-- Dokumentasi Scikit-learn: [https://scikit-learn.org/stable/modules/classes.html](https://scikit-learn.org/stable/modules/classes.html) 
-- Referensi Laporan: [https://github.com/fahmij8/ML-Exercise/blob/main/MLT-2/MLT_Proyek_Submission_2.ipynb](https://github.com/fahmij8/ML-Exercise/blob/main/MLT-2/MLT_Proyek_Submission_2.ipynb) 
+### References 
+- Scikit-learn Docummentation: [https://scikit-learn.org/stable/modules/classes.html](https://scikit-learn.org/stable/modules/classes.html) 
+- Report References: [https://github.com/fahmij8/ML-Exercise/blob/main/MLT-2/MLT_Proyek_Submission_2.ipynb](https://github.com/fahmij8/ML-Exercise/blob/main/MLT-2/MLT_Proyek_Submission_2.ipynb) 
 - Wikipedia: [Permainan (Game)](https://id.wikipedia.org/wiki/Permainan#Jenis_permainan) 
 - Dataset: [Game Sales with Ratings Dataset](https://www.kaggle.com/rush4ratio/video-game-sales-with-ratings)
